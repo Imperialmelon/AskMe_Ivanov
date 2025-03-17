@@ -17,6 +17,11 @@
                 <div class="d-flex flex-column gap-2">
                     {% for question in questions %}
                     {% include 'askme/components/question_card.html' with questions=questions %}
+                    {% empty %}
+                    <div class="d-flex align-items-center gap-2">
+                        <h3>Sorry, there is no such question!</h3>
+                        <a href="{% url 'AskMe:ask' %}">Create one?</a>
+                    </div>
 
                     
                     {% endfor %}
