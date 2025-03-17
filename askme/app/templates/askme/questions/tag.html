@@ -1,0 +1,26 @@
+{% extends "askme/base.html" %}
+
+
+        {% block content %}
+        <div class="d-flex justify-content-start gap-3 align-items-center w-100">
+            <h1>
+                Tag : {{tag}}
+            </h1>
+
+        </div>
+
+
+        <div class="row gap-4">
+            <div class="col-9">
+                <div class="d-flex flex-column gap-2">
+                    {% for question in questions %}
+                    {% include 'askme/components/question_card.html' with questions=questions %}
+
+                    
+                    {% endfor %}
+
+                </div>
+                {% include 'askme/components/pagination.html' with page_obj=questions %}
+
+                    </div>
+                    {% endblock %}

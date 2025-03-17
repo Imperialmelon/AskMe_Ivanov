@@ -1,0 +1,10 @@
+<div class="mt-2 border-top border-dark border-2">
+    <h2 class="mb-3">Best members</h2>
+    <div class="d-flex flex-column gap-1 ">
+        {% for member in best_members_arr %}
+        <span>
+            <a href="#" style="text-decoration: none;">{{member}}</a>            
+        </span>
+        {% endfor %}
+    </div>
+</div>

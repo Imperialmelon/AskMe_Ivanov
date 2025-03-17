@@ -1,0 +1,106 @@
+{% extends "askme/base.html" %}
+{% load static %}
+
+
+<body>
+    <main class="container mt-3">
+        {% block content %}
+  
+
+        <div class="row gap-4">
+            <div class="col-9">
+                <div class="d-flex flex-column gap-3">
+                    <div class="card border-0 border-bottom border-dark border-2 rounded-0">
+                        <div class="card-body">
+                            <div class="row"> 
+                                <div class="col-3">
+                                    <div class="mb-2">
+                                        <img src="{% static 'img\no_avatar.jpg' %}" class="img-fluid" style="object-fit: cover;">
+                                    </div>
+                                    <div>
+                                        <input class="form-control" type="number" value="{{question.likes}}" placeholder="Default input"
+                                        aria-label="default input example">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div>
+                                        <h5 class="card-title">{{question.title}}</h5>
+                                    </div>
+                                    <p class="card-text">
+                                        {{question.text}}
+                              </p>
+                                    <div class="d-flex gap-5">
+                                        
+                                        <div>
+                                            Tags:
+                                            {% for tag in question.tags %}
+                                            <a href="#" class="card-link">{{tag}}</a>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="border-dark border-2 d-flex flex-column border-bottom gap-2">
+                        {% for answer in answers %}
+                    <div class="card mb-1"> 
+                        <div class="card-body">
+                            <div class="row"> 
+                                <div class="col-3">
+                                    <div class="mb-2">
+                          
+                                        <img src="{% static 'img\no_avatar.jpg' %}" class="img-fluid" style="object-fit: cover;">
+                                    </div>
+                                    <div>
+                                        <input class="form-control" type="number" value="{{answer.likes}}" placeholder="Default input"
+                                        aria-label="default input example">
+                                    </div>
+                                </div>
+                                <div class="col d-flex flex-column justify-content-between">
+    
+                                    <p class="card-text">
+                                        {{answer.text}}</p>
+                                    <div class="d-flex align-items-center form-check gap-3 mb-2">
+                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" style="height: 20px; width: 20px;">
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                Useful answer
+                                            </label>
+                                    </div>
+            
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    {% endfor %}
+
+                    
+                   
+                    </div>
+
+
+
+
+                    <div class="d-flex flex-column gap-2">
+                        <div class="d-flex gap-2 align-items-baseline mb-3">
+                            <h4>Text</h4>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="10" cols="50" placeholder="Your question"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-outline-success" style="height: fit-content; width: fit-content;">Publish</button>
+                        <p style="color: red;">You are not authorized and not allowed to publish answers</p>
+
+                    </div>
+                    {% include 'askme/components/pagination.html' with page_obj=answers %}
+                    
+                    
+
+
+
+
+                </div>
+            </div>
+            {% endblock %}
+           

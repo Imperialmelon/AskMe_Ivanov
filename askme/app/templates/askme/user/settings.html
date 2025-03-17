@@ -1,0 +1,57 @@
+{% extends "askme/base.html" %}
+{% load static %}
+
+
+<body>
+
+
+    <main class="container mt-3">
+        {% block content %}
+        <div class="d-flex justify-content-start gap-3 align-items-center w-100 mb-5">
+            <h1>
+                Settings: {{user.login}}
+            </h1>
+
+        </div>
+
+
+        <div class="row gap-4">
+            <div class="col-9">
+                <div class="d-flex flex-column gap-2">
+                    <div class="row">
+                        <div class="col-2">
+                            <div class="d-flex flex-column gap-2">
+                            <h4 class="me-2">Login</h4>
+                            <h4 class="me-2">Email</h4>
+                            <h4 class="me-2">Nickname</h4>
+                            <h4 class="form-label" for="customFile">Avatar</h4>
+                            
+
+               
+                        </div>
+                      
+                        </div>
+                        <div class="col">
+                            <div class="d-flex flex-column gap-2">
+                            <input class="form-control w-50" type="text" placeholder="Login" aria-label="default input example" value="{{user.login}}" id="login_form" >
+                            <input type="email" class="form-control w-50" id="email_form" placeholder="name@example.com" value="{{user.email}}">
+                            <input class="form-control w-50" type="text" placeholder="Nickname" aria-label="default input example" value="{{user.nickname}}" id="nickname_form">
+                            <div class="d-flex flex-column">
+                                <img src="{% static 'img\no_avatar.jpg' %}" alt="Avatar is not set" class="img-thumbnail mb-1" style="width: 150px; height: 150px;">
+                                <input type="file" class="form-control w-50" id="customFile" />
+                            </div>
+                            
+
+                        </div>
+                        </div>
+           
+                    </div>
+                    <a href="{% url 'AskMe:question_list' %}">
+                    <button type="submit" class="btn btn-outline-success" style="height: fit-content; width: fit-content;">Save</button></a>
+       
+             
+               
+
+                </div>
+            </div>
+            {% endblock %}

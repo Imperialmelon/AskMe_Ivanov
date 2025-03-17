@@ -1,0 +1,62 @@
+{% load custom_tags %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{% static 'css\bootstrap.min.css' %}">
+  <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+
+    <nav class="navbar  navbar-expand-lg border-bottom border-2 border-dark bg-body-secondary">
+    <div class="container-fluid">
+        <div class="w-100 d-flex justify-content-between align-items-center">
+            <a class="navbar-brand" href="{% url 'AskMe:question_list' %}">StackOverflow 2.0</a>
+
+            <form class="d-flex col-7" method="get" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input class="form-control me-3" type="search" placeholder="Search" aria-label="Search" value="" name="question_title">
+                <button class="btn btn-outline-secondary" type="submit">Search</button>
+              </form>
+              <a href="{% url 'AskMe:ask' %}">
+                <button class="btn btn-outline-success" type="submit">Ask</button>
+              </a>
+            
+
+            <div class="d-flex gap-3">
+                {% if is_auth %}
+                <a href="#"  style="text-decoration: none;"><img src="{% static 'img\no_avatar.jpg' %}" class="img-thumbnail"  style="height: 50px; display: block; width: 50px; object-fit: cover; " alt="Photo"></a>
+                <div >
+                    
+                    <div>
+                        My Name
+                    </div>
+                    <div>
+                        <a href="{% url 'AskMe:settings' %}">Settings</a>
+                        <a href="#">Logout</a>
+                    </div>
+                    {% else %}
+                    <div>
+                        <a href="{% url 'AskMe:login' %}" style="text-decoration: none;">Login</a>
+                        <a href="{% url 'AskMe:register' %}" style="text-decoration: none;">Register</a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    </nav>
+    <main class="container mt-3">
+        {% block content %}
+            {% endblock %}
+            <div class="col">
+                {% most_popular_tags %}
+                {% best_members %}
+            </div>
+        </div>
+    </main>
+</body>
+</html>

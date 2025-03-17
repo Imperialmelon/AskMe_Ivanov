@@ -1,0 +1,47 @@
+{% extends "askme/base.html" %}
+        {% block content %}
+        <div class="d-flex justify-content-start gap-3 align-items-center w-100 mb-5">
+            <h1>
+                Log In
+            </h1>
+
+        </div>
+
+
+        <div class="row gap-4">
+            <div class="col-9">
+                <div class="d-flex flex-column gap-2">
+                    <p style="color: red;">Sorry, wrong credentials :&lpar;</p>
+                    <div class="row">
+                        <div class="col-2">
+                            <div class="d-flex flex-column gap-2">
+                            <h4 class="me-2">Login</h4>
+                            <h4 class="me-2">Password</h4>
+                      
+                            
+
+               
+                        </div>
+                      
+                        </div>
+                        <div class="col">
+                            <div class="d-flex flex-column gap-2">
+                            <input class="form-control w-50" type="text" placeholder="Login" aria-label="default input example" value="{{user.login}}" id="login_form" >
+                            <input type="password" class="form-control w-50" id="exampleInputPassword1" value="{{user.password}}">
+                            
+                            
+
+                        </div>
+                        </div>
+           
+                    </div>
+                    <button type="submit" class="btn btn-outline-success" style="height: fit-content; width: fit-content;">Log In</button>
+                    <a href="#" style="text-decoration: none;">No account yet? Create it!</a>
+       
+             
+               
+
+                </div>
+            </div>
+            {% endblock %}
+ 

@@ -1,0 +1,39 @@
+{% load static %}
+<div class="card">
+    <div class="card-body">
+        <div class="row"> 
+            <div class="col-3">
+                <div class="mb-2">
+                    <img src="https://yt3.googleusercontent.com/ytc/AGIKgqPir8OPrWiwjziGo8dLZQmg0MAZFHAHEcHDq-jNXA=s900-c-k-c0x00ffffff-no-rj" class="img-fluid" style="object-fit: cover;">
+                </div>
+                <div>
+                    <input class="form-control" type="number" value="{{question.likes}}" placeholder="Default input"
+                    aria-label="default input example">
+                </div>
+            </div>
+            <div class="col">
+                <div>
+                    <h5 class="card-title">
+                        
+                        <a href="{% url 'AskMe:question_detail' question.id %}" style="text-decoration: none;">
+                        {{question.title}}
+                        </a></h5>
+                </div>
+                <p class="card-text">
+                  {{question.text}}</p>
+                <div class="d-flex gap-5">
+                    <a href="#" class="card-link">Answers ({{question.answers}})</a>
+                    <div>
+                        Tags:
+                        {% for tag in question.tags %}
+                     
+                        <a href="{% url 'AskMe:get_by_tag' tag %}" class="card-link">{{tag}}</a>
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

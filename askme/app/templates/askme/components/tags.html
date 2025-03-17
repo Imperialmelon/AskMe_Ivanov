@@ -1,0 +1,15 @@
+
+    <div>
+        <h1 class="mb-3">Popular tags</h1>
+        <div class="d-flex gap-2 flex-wrap">
+            {% for tag in most_popular_tags_arr %} 
+            <a href="{% url 'AskMe:get_by_tag' tag.tag_ %}">
+            <button  class="border border-dark p-2 rounded btn btn-{{tag.color}}">{{tag.tag_}}</button></a>
+            {% endfor %}
+        </div>
+    </div>
+    
+
+
+
+
