@@ -56,10 +56,9 @@ def paginate(request, objects, per_page=5):
     
     try:
         paginated_objects = paginator.page(page)
-    except PageNotAnInteger:
+    except (PageNotAnInteger, EmptyPage):
         paginated_objects = paginator.page(1)
-    except EmptyPage:
-        paginated_objects = paginator.page(1)
+ 
     return paginated_objects
 
 
