@@ -50,13 +50,17 @@
     </div>
     </nav>
     <main class="container mt-3">
+        <div class="row gap-2">
+        <div class="col-9">
         {% block content %}
             {% endblock %}
+        </div>
             <div class="col">
                 {% most_popular_tags %}
                 {% best_members %}
             </div>
         </div>
     </main>
+</div>
 </body>
 </html>
