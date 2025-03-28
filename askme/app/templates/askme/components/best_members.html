@@ -3,7 +3,7 @@
     <div class="d-flex flex-column gap-1 ">
         {% for member in best_members_arr %}
         <span>
-            <a href="#" style="text-decoration: none;">{{member}}</a>            
+            <a href="#" style="text-decoration: none;">{{member.user.username}}</a>            
         </span>
         {% endfor %}
     </div>
