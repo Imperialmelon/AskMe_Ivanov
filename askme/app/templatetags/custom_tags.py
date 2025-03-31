@@ -14,5 +14,4 @@ def most_popular_tags():
 def best_members():
     members = Profile.objects.top_users()[:10]
 
-    # members = ['MrMr', 'ChatGPT', 'Aboba', 'MrBeast', 'Shrek', 'Watermelon', 'Kony Tanev']
     return {'best_members_arr' : members}
