@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import Count
-
+from django.urls import reverse
 class QuestionManager(models.Manager):
     def new(self):
         return self.order_by('-created')
@@ -29,6 +29,10 @@ class Question(models.Model):
         return self.likes.count()
     def answer_count(self):
         return self.answer_question.count()
+    
+    def get_absolute_url(self):
+        return reverse('AskMe:question_detail', args=[self.id])
+
     
 
 

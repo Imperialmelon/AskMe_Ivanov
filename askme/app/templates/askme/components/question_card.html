@@ -16,7 +16,7 @@
                 <div>
                     <h5 class="card-title">
                         
-                        <a href="{% url 'AskMe:question_detail' question.id %}" style="text-decoration: none;">
+                        <a href="{{question.get_absolute_url}}" style="text-decoration: none;">
                         {{question.title}}
                         </a></h5>
                 </div>

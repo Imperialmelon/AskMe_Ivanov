@@ -1,4 +1,4 @@
-# from django.shortcuts import render
+
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 tags = ['Redis', 'Django', 'Kafka', 'FastApi', 'PostgeSQL', 'MYSQL', 'C#', 'Python', 'C++', 'Go', 'HTML', 'CSS', 'React', 'Redux',
@@ -15,29 +15,9 @@ from django.shortcuts import render, get_object_or_404
 from .models import Question, Tag, Profile, Answer
 from .utils import paginate
 
-question_mocks = [
-        {'id' : i, 'likes' : randrange(i+10), 'title' : 'Why is my Next.js + Spring Boot website running slow on a VPS, and how can I fix it?', 'text' : ' I am working on a project similar to prompthero.com, where users can post AI-generated images along with their prompts.',
-         'tags' : [tags[randint(0,len(tags) - 1)] for _ in range(3)], 'answers' : randint(0,23)} for i in range(22)
-    ]
-
-ans_texts = ['kill yourself plz', 'just google it lmao', 'you are stupid', 'try to rerun the code', 'хз чел', 'иди документацию читай']
 
 
-class User_mock:
-        login = 'Name'
-        email = 'aboba@yandex.ru'
-        password = 'password'
-        nickname = 'Name'
-        pic = 'img\no_avatar.jpg'
-user = User_mock()
-
-answers_mocks = [
-    {
-        'id' : i, 'text' : choice(ans_texts), 'question_id' : choice(range(len(question_mocks))), 'author' : user, 'likes' : randrange(1,20)
-    } for i in range(300)
-]
-
-SINGLETON_USER = User(id=1001, username='student')
+SINGLETON_USER = User(id=1001, username='student', email = 'email@yandex.ru', first_name = 'Name')
 
 
 def questions_list(request):
@@ -47,11 +27,6 @@ def questions_list(request):
     questions = Question.objects.new().filter(title__icontains=question_title)
     questions = paginate(request, questions)
     print(question_title)
-    # if question_title:
-    #     questions = [question for question in question_mocks if question['title'] in question_title]
-    #     questions = paginate(request, questions)
-    # else:
-    #     questions = paginate(request, question_mocks)
     return render(
         request,
         'askme/questions/index.html',
@@ -61,16 +36,6 @@ def questions_list(request):
         }
     )
 
-# def paginate(request, objects, per_page=5):
-#     paginator = Paginator(objects, per_page)  
-#     page = request.GET.get('page', 1)
-    
-#     try:
-#         paginated_objects = paginator.page(page)
-#     except (PageNotAnInteger, EmptyPage):
-#         paginated_objects = paginator.page(1)
- 
-#     return paginated_objects
 
 
 def login(request):
@@ -78,7 +43,7 @@ def login(request):
         request,
         'askme/user/login.html',
         {'is_auth' : False,
-        'user' : user}
+        'user' : SINGLETON_USER}
     )
 
 
@@ -97,12 +62,7 @@ def ask(request):
     )
 
 def question_detail(request, question_id):
-    # print(question_id)
-    # print(question_id)
-    # answers = [answer for answer in answers_mocks if answer['question_id'] == question_id]
-    # answers = paginate(request, answers, 3)
 
-    # question = question_mocks[question_id]
     question = get_object_or_404(Question, id=question_id)
     answers = Answer.objects.get_answers(question_id)
     answers = paginate(request, answers)
@@ -118,16 +78,10 @@ def question_detail(request, question_id):
 
 
 def questions_with_tag(request, tag_name):
-    # print(tag)
-    # if tag is {}:
-    #     print(1)
-    #     tag = tag['tag']
     tag = get_object_or_404(Tag, title=tag_name)
     questions = Question.objects.tagged(tag.title)
     questions = paginate(request, questions)
     print(tag)
-    # questions = [q for q in question_mocks if tag in q['tags']]
-    # questions = paginate(request, questions, 5)
     return render(
         request,
         'askme/questions/tag.html',
@@ -143,23 +97,12 @@ def settings(request):
         request,
         'askme/user/settings.html',
         {'is_auth' : True,
-         'user' : user}
+         'user' : SINGLETON_USER}
     )
 
 def hot_questions(request):
     questions = Question.objects.hot()
     questions = paginate(request, questions)
-    # question_answer_counts = {}
-    # for question in question_mocks:
-    #     question_id = question['id']
-    #     question_answer_counts[question_id] = 0
-
-    # for answer in answers_mocks:
-    #     question_id = answer['question_id']
-    #     if question_id in question_answer_counts:
-    #         question_answer_counts[question_id] += 1
-
-    # sorted_question_mocks = sorted(question_mocks, key=lambda question: question_answer_counts[question['id']], reverse=True)
     return render(
         request, 
         'askme/questions/hot.html',
