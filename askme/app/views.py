@@ -1,9 +1,6 @@
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-tags = ['Redis', 'Django', 'Kafka', 'FastApi', 'PostgeSQL', 'MYSQL', 'C#', 'Python', 'C++', 'Go', 'HTML', 'CSS', 'React', 'Redux',
-        'Tauri', 'ORM', 'Alchemy', 'AioHttp', 'REST', 'Kotlin', 'Swift', 'Vue', 'Angular', 'Java', 'JavaScript', 'TypeScript', 'Spring', 'Shrek']
-
 
 from random import randrange, randint, choice
 from .models import Question
