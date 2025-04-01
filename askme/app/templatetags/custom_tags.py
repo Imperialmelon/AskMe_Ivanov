@@ -1,5 +1,4 @@
 from django import template
-from ..views import tags
 from random import choice, randint
 from ..models import Tag, Profile
 register = template.Library()

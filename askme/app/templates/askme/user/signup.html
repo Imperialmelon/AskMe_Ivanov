@@ -17,39 +17,65 @@
     
                 <div class="d-flex flex-column gap-2">
                     <p style="color: red;">This email already exists :&lpar;</p>
-                    <div class="row">
-                        <div class="col-3">
-                            <div class="d-flex flex-column gap-2">
-                            <h4 class="me-2">Login</h4>
-                            <h4 class="me-2">Email</h4>
-                            <h4 class="me-2">Nickname</h4>
-                            <h4 class="me-2">Password</h4>
-                            <h4 class="me-2">Repeat password</h4>
-                            <h4 class="me-2" for="customFile">Avatar</h4>
-                      
-                            
+                    <form>
+                        <div class="align-items-center row b-3">
+                            <label for="login_form" class="col-2 col-form-label">
+                                <p class="mb-0 fs-4" style="font-weight: 500;">Login</p>
+                            </label>
+                            <div class="col-10">
+                                <input class="form-control w-50" type="text" placeholder="Login" aria-label="default input example" id="login_form" >
+                            </div>
+                        </div>
+                        <div class="align-items-center row b-3">
+                            <label for="email_form" class="col-2 col-form-label">
+                                <p class="mb-0 fs-4" style="font-weight: 500;">Email</p>
+                            </label>
+                            <div class="col-10">
+                                <input type="email" class="form-control w-50" id="email_form" placeholder="name@example.com" value="my_email@aboba.ru">
+                            </div>
+                        </div>
 
-               
+                        <div class="align-items-center row b-3">
+                            <label for="nickname_form" class="col-2 col-form-label">
+                                <p class="mb-0 fs-4" style="font-weight: 500;">Nickname</p>
+                            </label>
+                            <div class="col-10">
+                                <input class="form-control w-50" type="text" placeholder="Nickname" aria-label="default input example" value="My Name" id="nickname_form">
+                            </div>
                         </div>
-                      
+                        <div class="align-items-center row b-3">
+                            <label for="password_form" class="col-2 col-form-label">
+                                <p class="mb-0 fs-4" style="font-weight: 500;">Password</p>
+                            </label>
+                            <div class="col-10">
+                                <input type="password" class="form-control w-50" id="password_form" value="shrek_password">
+                            </div>
                         </div>
-                        <div class="col">
-                            <div class="d-flex flex-column gap-2">
-                            <input class="form-control w-50" type="text" placeholder="Login" aria-label="default input example" value="My Login" id="login_form" >
-                            <input type="email" class="form-control w-50" id="email_form" placeholder="name@example.com" value="my_email@aboba.ru">
-                            <input class="form-control w-50" type="text" placeholder="Nickname" aria-label="default input example" value="My Name" id="nickname_form">
-                            <input type="password" class="form-control w-50" id="password_form" value="shrek_password">
-                            <input type="password" class="form-control w-50" id="repeat_password_form" value="shrek_password">
-                            <input type="file" class="form-control w-50" id="customFile" />
-                            
-                            
+                        <div class="align-items-center row b-3">
+                            <label for="repeat_password_form" class="col-2 col-form-label">
+                                <p class="mb-0 fs-4" style="font-weight: 500;">Repeat password</p>
+                            </label>
+                            <div class="col-10">
+                                <input type="password" class="form-control w-50" id="repeat_password_form" value="shrek_password">
+                            </div>
+                        </div>
+                        <div class="align-items-center row b-3">
+                            <label for="customFile" class="col-2 col-form-label">
+                                <p class="mb-0 fs-4" style="font-weight: 500;" for="customFile">Avatar</p>
+                            </label>
+                            <div class="col-10">
+                                <input type="file" class="form-control w-50" id="customFile" />
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-outline-success" style="height: fit-content; width: fit-content;">Register</button>
 
-                        </div>
-                        </div>
-                        
-           
-                    </div>
-                    <button type="submit" class="btn btn-outline-success" style="height: fit-content; width: fit-content;">Register</button>
+
+
+
+
+
+                    </form>
+                    
                     
        
              
