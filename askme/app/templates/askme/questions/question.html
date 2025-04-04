@@ -14,8 +14,8 @@
                             <div class="row"> 
                                 <div class="col-3">
                                     <div class="mb-2">
-                                
                                         <img src="{% static 'img/'|add:question.author.profile.avatar %}" alt="{% static 'img\no_avatar.jpg' %}" class="img-fluid" style="object-fit: cover;">
+                                        <p class="text-center mt-2 fw-bold">{{ question.author.username }}</p>
                                     </div>
                                     <div class="d-flex align-items-center gap-2 justify-content-center">
                                         <button class="btn btn-success btn-sm p-0" style="width: 2rem; height: 2rem;">+</button>
@@ -29,9 +29,8 @@
                                     </div>
                                     <p class="card-text">
                                         {{question.content}}
-                              </p>
+                                    </p>
                                     <div class="d-flex gap-5">
-                                        
                                         <div>
                                             Tags:
                                             {% for tag in question.tags.all %}
@@ -42,50 +41,45 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
 
                     <div class="border-dark border-2 d-flex flex-column border-bottom gap-2">
                         {% for answer in answers %}
-                    <div class="card mb-1"> 
-                        <div class="card-body">
-                            <div class="row"> 
-                                <div class="col-3">
-                                    <div class="mb-2">
-                          
-                                        <img src="{% static 'img/'|add:answer.author.profile.avatar %}" alt="{% static 'img\no_avatar.jpg' %}" class="img-fluid" style="object-fit: cover;">
+                        <div class="card mb-1"> 
+                            <div class="card-body">
+                                <div class="row"> 
+                                    <div class="col-3">
+                                        <div class="mb-2">
+                                            <img src="{% static 'img/'|add:answer.author.profile.avatar %}" alt="{% static 'img\no_avatar.jpg' %}" class="img-fluid" style="object-fit: cover;">
+                                            <p class="text-center mt-2 fw-bold">{{ answer.author.username }}</p>
+                                        </div>
+                                        <div class="d-flex align-items-center gap-2 justify-content-center">
+                                            <button class="btn btn-success btn-sm p-0" style="width: 2rem; height: 2rem;">+</button>
+                                            <span class="fs-5 fw-bold">{{answer.like_count}}</span>
+                                            <button class="btn btn-danger btn-sm p-0" style="width: 2rem; height: 2rem;">-</button>
+                                        </div>
                                     </div>
-                                    <div class="d-flex align-items-center gap-2 justify-content-center">
-                                        <button class="btn btn-success btn-sm p-0" style="width: 2rem; height: 2rem;">+</button>
-                                        <span class="fs-5 fw-bold">{{answer.like_count}}</span>
-                                        <button class="btn btn-danger btn-sm p-0" style="width: 2rem; height: 2rem;">-</button>
-                                    </div>
-                                </div>
-                                <div class="col d-flex flex-column justify-content-between">
-    
-                                    <p class="card-text">
-                                        {{answer.content}}</p>
-                                    <div class="d-flex align-items-center form-check gap-3 mb-2">
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" style="height: 20px; width: 20px;">
-                                            <label class="form-check-label" for="flexCheckDefault">
-                                                Useful answer
+                                    <div class="col d-flex flex-column justify-content-between">
+                                        <p class="card-text">
+                                            {{answer.content}}
+                                        </p>
+                                        <div class="d-flex align-items-center form-check gap-3 mb-2">
+                                            <input class="form-check-input" type="checkbox" 
+                                                   value="{{ answer.id }}" 
+                                                   id="flexCheckDefault_{{ answer.id }}" 
+                                                   {% if answer.helpful %}checked{% endif %} 
+                                                   style="height: 20px; width: 20px;">
+                                            <label class="form-check-label" for="flexCheckDefault_{{ answer.id }}">
+                                                Useful answer 
                                             </label>
+                                        </div>
                                     </div>
-            
                                 </div>
                             </div>
                         </div>
-
+                        {% endfor %}
+                        {% include 'askme/components/pagination.html' with page_obj=answers %}
                     </div>
-                    {% endfor %}
-                    {% include 'askme/components/pagination.html' with page_obj=answers %}
-
-                    
-                   
-                    </div>
-
-
-
 
                     <div class="d-flex flex-column gap-2">
                         <div class="d-flex gap-2 align-items-baseline mb-3">
@@ -94,16 +88,7 @@
                         </div>
                         <button type="submit" class="btn btn-outline-success" style="height: fit-content; width: fit-content;">Publish</button>
                         <p style="color: red;">You are not authorized and not allowed to publish answers</p>
-
                     </div>
-                   
-                    
-                    
-
-
-
-
                 </div>
             </div>
             {% endblock %}
-           

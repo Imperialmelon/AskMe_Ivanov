@@ -1,6 +1,6 @@
 import os
 import random
-
+import time
 from django.core.files import File
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
@@ -99,24 +99,32 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         self.ratio = options['ratio']
         self.stdout.write('Starting to fill the database...')
+        start_time = time.perf_counter()
 
         with transaction.atomic():
             users = self.create_users()
+            self.stdout.write('created users')
             self.create_profiles(users)
+            self.stdout.write('created profiles')
 
             tags = list(self.create_tags())
+            self.stdout.write('created tags')
 
             questions = self.create_questions(users)
+            self.stdout.write('created questions')
             Question.objects.bulk_create(questions)
 
             for question in Question.objects.all():
                 selected_tags = random.sample(tags, k=random.randint(1, 5))
                 question.tags.add(*selected_tags)
+            self.stdout.write('added tags')
 
             answers = self.create_answers(questions, users)
+            self.stdout.write('created answers')
             Answer.objects.bulk_create(answers)
 
             self.create_question_likes(questions, users)
+            self.stdout.write('created likes for questions')
             self.create_answer_likes(answers, users)
 
-        self.stdout.write(self.style.SUCCESS('Successfully filled the database!'))
+        self.stdout.write(self.style.SUCCESS(f'Successfully filled the database! It took {(time.perf_counter() - start_time)::.4f} seconds'))

@@ -82,6 +82,7 @@ class Answer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='answer_question')
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    helpful = models.BooleanField(default=False)
 
 
     objects = AnswerManager()
