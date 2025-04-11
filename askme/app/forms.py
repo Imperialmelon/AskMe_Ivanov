@@ -7,14 +7,14 @@ from django.contrib.auth.forms import UserCreationForm
 
 class LoginForm(forms.Form):
     username = forms.CharField(
-        label="Login",  # Явно задаем label для отображения
+        label="Login",  
         widget=forms.TextInput(attrs={
             'class': 'form-control w-50',
             'placeholder': 'Enter your nickname'
         })
     )
     password = forms.CharField(
-        label="Password",  # Явно задаем label для отображения
+        label="Password",  
         widget=forms.PasswordInput(attrs={
             'class': 'form-control w-50',
             'placeholder': 'Enter your password'
@@ -192,11 +192,6 @@ class AskForm(forms.ModelForm):
         self.user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
 
-    # def clean_title(self):
-    #     title = self.cleaned_data.get('title')
-    #     if len(title) < 10:
-    #         raise ValidationError("Title must be at least 10 characters long.")
-    #     return title
 
     def clean_content(self):
         content = self.cleaned_data.get('content')
