@@ -14,7 +14,7 @@
                             <div class="row"> 
                                 <div class="col-3">
                                     <div class="mb-2">
-                                        <img src="{% static 'img/'|add:question.author.profile.avatar %}" alt="{% static 'img\no_avatar.jpg' %}" class="img-fluid" style="object-fit: cover;">
+                                        <img src="{{question.author.profile.avatar.url}}" alt="{% static 'img\no_avatar.jpg' %}" class="img-fluid" style="object-fit: cover;">
                                         <p class="text-center mt-2 fw-bold">{{ question.author.username }}</p>
                                     </div>
                                     <div class="d-flex align-items-center gap-2 justify-content-center">
@@ -50,7 +50,7 @@
                                 <div class="row"> 
                                     <div class="col-3">
                                         <div class="mb-2">
-                                            <img src="{% static 'img/'|add:answer.author.profile.avatar %}" alt="{% static 'img\no_avatar.jpg' %}" class="img-fluid" style="object-fit: cover;">
+                                            <img src="{{answer.author.profile.avatar.url}}" alt="{% static 'img\no_avatar.jpg' %}" class="img-fluid" style="object-fit: cover;">
                                             <p class="text-center mt-2 fw-bold">{{ answer.author.username }}</p>
                                         </div>
                                         <div class="d-flex align-items-center gap-2 justify-content-center">
@@ -80,15 +80,16 @@
                         {% endfor %}
                         {% include 'askme/components/pagination.html' with page_obj=answers %}
                     </div>
-
+                    <form method="post">
+                    {% csrf_token %}
                     <div class="d-flex flex-column gap-2">
                         <div class="d-flex gap-2 align-items-baseline mb-3">
-                            <h4>Text</h4>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="10" cols="50" placeholder="Your question"></textarea>
+                            <h4>{{form.content.label}}</h4>
+                            {{form.content}}
                         </div>
                         <button type="submit" class="btn btn-outline-success" style="height: fit-content; width: fit-content;">Publish</button>
-                        <p style="color: red;">You are not authorized and not allowed to publish answers</p>
                     </div>
+                </form>
                 </div>
             </div>
             {% endblock %}

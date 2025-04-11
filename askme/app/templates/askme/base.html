@@ -21,26 +21,34 @@
                 <input class="form-control me-3" type="search" placeholder="Search" aria-label="Search" value="" name="question_title">
                 <button class="btn btn-outline-secondary" type="submit">Search</button>
               </form>
+              {% if request.user.is_authenticated %}
               <a href="{% url 'AskMe:ask' %}">
                 <button class="btn btn-outline-success" type="submit">Ask</button>
               </a>
+              {% else %}
+
+              <a href="{% url 'AskMe:login' %}?continue={% url 'AskMe:ask' %}">
+                <button class="btn btn-outline-success" type="submit">Ask</button>
+              </a>
+              {% endif %}
+
             
 
             <div class="d-flex gap-3">
-                {% if is_auth %}
-                <a href="#"  style="text-decoration: none;"><img src="{% static 'img\no_avatar.jpg' %}" class="img-thumbnail"  style="height: 50px; display: block; width: 50px; object-fit: cover; " alt="Photo"></a>
+                {% if request.user.is_authenticated %}
+                <a href="#"  style="text-decoration: none;"><img src="{{request.user.profile.avatar.url}}" class="img-thumbnail"  style="height: 50px; display: block; width: 50px; object-fit: cover; " alt="Photo"></a>
                 <div >
                     
                     <div>
-                        My Name
+                        {{request.user.username}}
                     </div>
                     <div>
                         <a href="{% url 'AskMe:settings' %}">Settings</a>
-                        <a href="#">Logout</a>
+                        <a href="{% url 'AskMe:logout' %}">Logout</a>
                     </div>
                     {% else %}
                     <div>
-                        <a href="{% url 'AskMe:login' %}" style="text-decoration: none;">Login</a>
+                        <a href="{% url 'AskMe:login' %}?continue={{ request.get_full_path }}" style="text-decoration: none;">Login</a>
                         <a href="{% url 'AskMe:register' %}" style="text-decoration: none;">Register</a>
                     </div>
                     {% endif %}

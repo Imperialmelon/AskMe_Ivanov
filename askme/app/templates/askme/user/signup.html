@@ -16,66 +16,33 @@
         <div class="row gap-4">
     
                 <div class="d-flex flex-column gap-2">
-                    <p style="color: red;">This email already exists :&lpar;</p>
-                    <form>
-                        <div class="align-items-center row b-3">
-                            <label for="login_form" class="col-2 col-form-label">
-                                <p class="mb-0 fs-4" style="font-weight: 500;">Login</p>
-                            </label>
-                            <div class="col-10">
-                                <input class="form-control w-50" type="text" placeholder="Login" aria-label="default input example" id="login_form" >
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        {% for field in form %}
+                            <div class="align-items-center row b-3">
+                                <label for="{{ field.id_for_label }}" class="col-2 col-form-label">
+                                    <p class="mb-0 fs-4" style="font-weight: 500;">
+                                        {% if field.name == 'username' %}Nickname
+                                        {% elif field.name == 'password1' %}Password
+                                        {% elif field.name == 'password2' %}Repeat password
+                                        {% else %}{{ field.label }}{% endif %}
+                                    </p>
+                                </label>
+                                <div class="col-10">
+                                    {{ field }}
+                                    {% if field.errors %}
+                                        <div class="text-danger">{{ field.errors }}</div>
+                                    {% endif %}
+                                </div>
                             </div>
-                        </div>
-                        <div class="align-items-center row b-3">
-                            <label for="email_form" class="col-2 col-form-label">
-                                <p class="mb-0 fs-4" style="font-weight: 500;">Email</p>
-                            </label>
-                            <div class="col-10">
-                                <input type="email" class="form-control w-50" id="email_form" placeholder="name@example.com" value="my_email@aboba.ru">
-                            </div>
-                        </div>
+                        {% endfor %}
+                        
 
-                        <div class="align-items-center row b-3">
-                            <label for="nickname_form" class="col-2 col-form-label">
-                                <p class="mb-0 fs-4" style="font-weight: 500;">Nickname</p>
-                            </label>
-                            <div class="col-10">
-                                <input class="form-control w-50" type="text" placeholder="Nickname" aria-label="default input example" value="My Name" id="nickname_form">
-                            </div>
-                        </div>
-                        <div class="align-items-center row b-3">
-                            <label for="password_form" class="col-2 col-form-label">
-                                <p class="mb-0 fs-4" style="font-weight: 500;">Password</p>
-                            </label>
-                            <div class="col-10">
-                                <input type="password" class="form-control w-50" id="password_form" value="shrek_password">
-                            </div>
-                        </div>
-                        <div class="align-items-center row b-3">
-                            <label for="repeat_password_form" class="col-2 col-form-label">
-                                <p class="mb-0 fs-4" style="font-weight: 500;">Repeat password</p>
-                            </label>
-                            <div class="col-10">
-                                <input type="password" class="form-control w-50" id="repeat_password_form" value="shrek_password">
-                            </div>
-                        </div>
-                        <div class="align-items-center row b-3">
-                            <label for="customFile" class="col-2 col-form-label">
-                                <p class="mb-0 fs-4" style="font-weight: 500;" for="customFile">Avatar</p>
-                            </label>
-                            <div class="col-10">
-                                <input type="file" class="form-control w-50" id="customFile" />
-                            </div>
-                        </div>
+
+                        
                         <button type="submit" class="btn btn-outline-success" style="height: fit-content; width: fit-content;">Register</button>
-
-
-
-
-
-
                     </form>
-                    
                     
        
              

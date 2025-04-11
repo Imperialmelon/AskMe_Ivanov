@@ -62,7 +62,7 @@ class ProfileManager(models.Manager):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    avatar = models.CharField(max_length=255, blank=True, null=True)
+    avatar = models.ImageField( blank=True, null=True, upload_to = 'avatars/', default='default_pic.jpg')
     objects = ProfileManager()
 
     def __str__(self):

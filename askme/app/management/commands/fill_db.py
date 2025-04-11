@@ -1,6 +1,6 @@
 import os
 import random
-import time
+
 from django.core.files import File
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
@@ -48,14 +48,10 @@ class Command(BaseCommand):
         return User.objects.all()
 
     def create_profiles(self, users):
-        img_files = [f'{i}.jpg' for i in range(1, 7)]
         profiles = []
-
         for user in users:
-            avatar_name = random.choice(img_files)
-            profile = Profile(user=user, avatar=avatar_name)
+            profile = Profile(user=user)
             profiles.append(profile)
-
         Profile.objects.bulk_create(profiles)
 
     def create_tags(self):
@@ -99,32 +95,31 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         self.ratio = options['ratio']
         self.stdout.write('Starting to fill the database...')
-        start_time = time.perf_counter()
 
         with transaction.atomic():
             users = self.create_users()
-            self.stdout.write('created users')
+            print('users created')
             self.create_profiles(users)
-            self.stdout.write('created profiles')
+            print('profiles created')
 
             tags = list(self.create_tags())
-            self.stdout.write('created tags')
+            print('tags created')
 
             questions = self.create_questions(users)
-            self.stdout.write('created questions')
-            Question.objects.bulk_create(questions)
 
+            Question.objects.bulk_create(questions)
+            print('questions created')
             for question in Question.objects.all():
                 selected_tags = random.sample(tags, k=random.randint(1, 5))
                 question.tags.add(*selected_tags)
-            self.stdout.write('added tags')
 
             answers = self.create_answers(questions, users)
-            self.stdout.write('created answers')
             Answer.objects.bulk_create(answers)
+            print('answers created')
 
             self.create_question_likes(questions, users)
-            self.stdout.write('created likes for questions')
+            print('question_likes created')
             self.create_answer_likes(answers, users)
+            print('answer_likes created')
 
-        self.stdout.write(self.style.SUCCESS(f'Successfully filled the database! It took {(time.perf_counter() - start_time)::.4f} seconds'))
+        self.stdout.write(self.style.SUCCESS('Successfully filled the database!'))

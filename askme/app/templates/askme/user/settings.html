@@ -10,50 +10,56 @@
 
 <div class="row gap-4">
     <div class="d-flex flex-column gap-2">
-        <form>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+
             <div class="mb-3 row align-items-center">
-                <label for="login_form" class="col-2 col-form-label">
+                <label for="{{ form.username.id_for_label }}" class="col-2 col-form-label">
                     <p class="mb-0 fs-4" style="font-weight: 500;">Login</p>
                 </label>
                 <div class="col-10">
-                    <input class="form-control w-50" type="text" placeholder="Login" aria-label="default input example" value="{{user.login}}" id="login_form">
+                    {{ form.username }}
+                    {% if form.username.errors %}
+                        <div class="text-danger">{{ form.username.errors }}</div>
+                    {% endif %}
                 </div>
             </div>
             
             <div class="mb-3 row align-items-center">
-                <label for="email_form" class="col-2 col-form-label">
+                <label for="{{ form.email.id_for_label }}" class="col-2 col-form-label">
                     <p class="mb-0 fs-4" style="font-weight: 500;">Email</p>
                 </label>
                 <div class="col-10">
-                    <input type="email" class="form-control w-50" id="email_form" placeholder="name@example.com" value="{{user.email}}">
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                        <div class="text-danger">{{ form.email.errors }}</div>
+                    {% endif %}
                 </div>
             </div>
             
+
             <div class="mb-3 row align-items-center">
-                <label for="nickname_form" class="col-2 col-form-label">
-                    <p class="mb-0 fs-4" style="font-weight: 500;">Nickname</p>
-                </label>
-                <div class="col-10">
-                    <input class="form-control w-50" type="text" placeholder="Nickname" aria-label="default input example" value="{{user.nickname}}" id="nickname_form">
-                </div>
-            </div>
-            
-            <div class="mb-3 row align-items-center">
-                <label for="customFile" class="col-2 col-form-label">
+                <label for="{{ form.avatar.id_for_label }}" class="col-2 col-form-label">
                     <p class="mb-0 fs-4" style="font-weight: 500;">Avatar</p>
                 </label>
                 <div class="col-10">
                     <div class="d-flex flex-column">
-                        <img src="{% static 'img\no_avatar.jpg' %}" alt="Avatar is not set" class="img-thumbnail mb-2" style="width: 150px; height: 150px;">
-                        <input type="file" class="form-control w-50" id="customFile" />
+                        {% if form.instance.avatar %}
+                            <img src="{{ form.instance.avatar.url }}" alt="Current avatar" class="img-thumbnail mb-2" style="width: 150px; height: 150px;">
+                        {% else %}
+                            <img src="{% static 'img/no_avatar.jpg' %}" alt="Avatar is not set" class="img-thumbnail mb-2" style="width: 150px; height: 150px;">
+                        {% endif %}
+                        {{ form.avatar }}
                     </div>
+                    {% if form.avatar.errors %}
+                        <div class="text-danger">{{ form.avatar.errors }}</div>
+                    {% endif %}
                 </div>
             </div>
             
             <div class="mb-3">
-                <a href="{% url 'AskMe:question_list' %}">
-                    <button type="submit" class="btn btn-outline-success" style="height: fit-content; width: fit-content;">Save</button>
-                </a>
+                <button type="submit" class="btn btn-outline-success" style="height: fit-content; width: fit-content;">Save</button>
             </div>
         </form>
     </div>

@@ -10,23 +10,55 @@
 
 
         <div class="row gap-4">
- <div class="d-flex-column">
+            <div class="d-flex flex-column">
                 <h1 class="mb-3">New Question</h1>
-                <div class="d-flex gap-2 align-items-baseline mb-3">
-                    <p class="col-2 col-form-label fs-4" style="font-weight: 500;">Title</p>
-                    <input class="form-control" type="text" placeholder="Name your question" aria-label="default input example">
-                </div>
-                <div class="d-flex gap-2 align-items-baseline mb-3">
-                    <p class="col-2 col-form-label fs-4" style="font-weight: 500;">Text</p>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="10" cols="50" placeholder="Your question"></textarea>
-                </div>
-                <div class="d-flex gap-2 align-items-baseline mb-3">
-                    <p class="col-2 col-form-label fs-4" style="font-weight: 500;">Tags</p>
-                    <input class="form-control" type="text" placeholder="Your tags" aria-label="default input example">
-                </div>
-                <button class="btn btn-outline-success">
-                    Publish
-                </button>
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    <div class="d-flex gap-2 align-items-baseline mb-3">
+                        <label for="{{ form.title.id_for_label }}" class="col-2 col-form-label fs-4" style="font-weight: 500;">
+                            Title
+                        </label>
+                        <div class="flex-grow-1">
+                            {{ form.title }}
+                            {% if form.title.errors %}
+                                <div class="text-danger">{{ form.title.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex gap-2 align-items-baseline mb-3">
+                        <label for="{{ form.content.id_for_label }}" class="col-2 col-form-label fs-4" style="font-weight: 500;">
+                            Text
+                        </label>
+                        <div class="flex-grow-1">
+                            {{ form.content }}
+                            {% if form.content.errors %}
+                                <div class="text-danger">{{ form.content.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+  
+                    <div class="d-flex gap-2 align-items-baseline mb-3">
+                        <label for="{{ form.tags.id_for_label }}" class="col-2 col-form-label fs-4" style="font-weight: 500;">
+                            Tags
+                        </label>
+                        <div class="flex-grow-1">
+                            {{ form.tags }}
+                            {% if form.tags.help_text %}
+                                <small class="form-text text-muted">{{ form.tags.help_text }}</small>
+                            {% endif %}
+                            {% if form.tags.errors %}
+                                <div class="text-danger">{{ form.tags.errors }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-outline-success">
+                        Publish
+                    </button>
+                </form>
             </div>
         </div>
             {% endblock %}
