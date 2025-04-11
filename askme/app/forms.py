@@ -21,7 +21,9 @@ class LoginForm(forms.Form):
         })
     )
 
-class RegisterForm(UserCreationForm):
+class RegisterForm(forms.ModelForm):
+    password1 = forms.CharField(label='Passowrd', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='Repeat passowrd', widget=forms.PasswordInput)
     avatar = forms.ImageField(
         required=False,
         widget=forms.FileInput(attrs={
@@ -29,10 +31,11 @@ class RegisterForm(UserCreationForm):
             'accept': 'image/*'
         })
     )
+
     
     class Meta:
         model = get_user_model()
-        fields = ('username', 'email', 'password1', 'password2')
+        fields = ('username', 'email')
         widgets = {
             'username': forms.TextInput(attrs={
                 'class': 'form-control', 
@@ -65,11 +68,11 @@ class RegisterForm(UserCreationForm):
             raise ValidationError('This email is already registered')
         return email
     
-    def clean_password(self):
+    def clean_password2(self):
         password1 = self.cleaned_data['password1']
         password2 = self.cleaned_data['password2']
         if password1 and password2 and password2 != password1:
-            raise ValidationError('Password dont match')
+            raise ValidationError('Passwords dont match')
         return password2
     
     def save(self):
