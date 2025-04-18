@@ -1,7 +1,5 @@
-import os
 import random
 
-from django.core.files import File
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
 from django.db import transaction
@@ -9,19 +7,19 @@ from ...models import Profile, Question, Answer, Tag, QuestionLike, AnswerLike
 
 
 class Command(BaseCommand):
-    help = 'Fills the database with test data'
+    help = "Fills the database with test data"
 
     def add_arguments(self, parser):
-        parser.add_argument('ratio', type=int, help='Ratio for filling the database')
+        parser.add_argument("ratio", type=int, help="Ratio for filling the database")
 
     def create_username(self, i):
-        return f'username{i}'
+        return f"username{i}"
 
     def create_email(self, i):
-        return f'user{i}@example.com'
+        return f"user{i}@example.com"
 
     def create_question_title(self, i):
-        return f'Question title {i}'
+        return f"Question title {i}"
 
     def create_question_content(self, i):
         return (
@@ -42,7 +40,7 @@ class Command(BaseCommand):
         for i in range(1, self.ratio + 1):
             username = self.create_username(i)
             email = self.create_email(i)
-            user = User(username=username, email=email, password='password')
+            user = User(username=username, email=email, password="password")
             users.append(user)
         User.objects.bulk_create(users, ignore_conflicts=True)
         return User.objects.all()
@@ -55,7 +53,7 @@ class Command(BaseCommand):
         Profile.objects.bulk_create(profiles)
 
     def create_tags(self):
-        tag_names = {f'tag{i}' for i in range(1, self.ratio + 1)}
+        tag_names = {f"tag{i}" for i in range(1, self.ratio + 1)}
         tags = [Tag(title=name) for name in tag_names]
         Tag.objects.bulk_create(tags, ignore_conflicts=True)
         return Tag.objects.all()
@@ -65,8 +63,9 @@ class Command(BaseCommand):
             Question(
                 title=self.create_question_title(i),
                 content=self.create_question_content(i),
-                author=random.choice(users)
-            ) for i in range(1, self.ratio * 10 + 1)
+                author=random.choice(users),
+            )
+            for i in range(1, self.ratio * 10 + 1)
         ]
 
     def create_answers(self, questions, users):
@@ -74,8 +73,9 @@ class Command(BaseCommand):
             Answer(
                 content=self.create_answer_content(i),
                 author=random.choice(users),
-                question=random.choice(questions)
-            ) for i in range(1, self.ratio * 100 + 1)
+                question=random.choice(questions),
+            )
+            for i in range(1, self.ratio * 100 + 1)
         ]
 
     def create_question_likes(self, questions, users):
@@ -93,33 +93,33 @@ class Command(BaseCommand):
         AnswerLike.objects.bulk_create(likes, ignore_conflicts=True)
 
     def handle(self, *args, **options):
-        self.ratio = options['ratio']
-        self.stdout.write('Starting to fill the database...')
+        self.ratio = options["ratio"]
+        self.stdout.write("Starting to fill the database...")
 
         with transaction.atomic():
             users = self.create_users()
-            print('users created')
+            print("users created")
             self.create_profiles(users)
-            print('profiles created')
+            print("profiles created")
 
             tags = list(self.create_tags())
-            print('tags created')
+            print("tags created")
 
             questions = self.create_questions(users)
 
             Question.objects.bulk_create(questions)
-            print('questions created')
+            print("questions created")
             for question in Question.objects.all():
                 selected_tags = random.sample(tags, k=random.randint(1, 5))
                 question.tags.add(*selected_tags)
 
             answers = self.create_answers(questions, users)
             Answer.objects.bulk_create(answers)
-            print('answers created')
+            print("answers created")
 
             self.create_question_likes(questions, users)
-            print('question_likes created')
+            print("question_likes created")
             self.create_answer_likes(answers, users)
-            print('answer_likes created')
+            print("answer_likes created")
 
-        self.stdout.write(self.style.SUCCESS('Successfully filled the database!'))
+        self.stdout.write(self.style.SUCCESS("Successfully filled the database!"))

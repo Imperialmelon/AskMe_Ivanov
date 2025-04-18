@@ -1,6 +1,5 @@
 from django.contrib import admin
-from .models import Answer,AnswerLike,Question,QuestionLike,Tag,Profile
-
+from .models import Answer, AnswerLike, Question, QuestionLike, Tag, Profile
 
 
 # Register your models here.
