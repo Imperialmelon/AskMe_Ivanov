@@ -21,7 +21,7 @@ def questions_list(request: HttpRequest) -> HttpResponse:
     return render(
         request,
         "askme/questions/index.html",
-        {"is_auth": False, "questions": questions},
+        {"questions": questions},
     )
 
 
@@ -112,7 +112,7 @@ def questions_with_tag(request: HttpRequest, tag_name: str) -> HttpResponse:
     return render(
         request,
         "askme/questions/tag.html",
-        {"is_auth": True, "tag": tag, "questions": questions},
+        {"tag": tag, "questions": questions},
     )
 
 
@@ -137,5 +137,5 @@ def hot_questions(request: HttpRequest) -> HttpRequest:
     questions = Question.objects.hot()
     questions = paginate(request, questions)
     return render(
-        request, "askme/questions/hot.html", {"is_auth": True, "questions": questions}
+        request, "askme/questions/hot.html", {"questions": questions}
     )
