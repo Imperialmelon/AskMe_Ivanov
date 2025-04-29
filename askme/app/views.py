@@ -136,6 +136,4 @@ def settings(request: HttpRequest) -> HttpResponse:
 def hot_questions(request: HttpRequest) -> HttpRequest:
     questions = Question.objects.hot()
     questions = paginate(request, questions)
-    return render(
-        request, "askme/questions/hot.html", {"questions": questions}
-    )
+    return render(request, "askme/questions/hot.html", {"questions": questions})
