@@ -34,7 +34,7 @@
                                         <div>
                                             Tags:
                                             {% for tag in question.tags.all %}
-                                            <a href="#" class="card-link">{{tag}}</a>
+                                            <a href="{% url 'AskMe:get_by_tag' tag %}" class="card-link">{{tag}}</a>
                                             {% endfor %}
                                         </div>
                                     </div>
