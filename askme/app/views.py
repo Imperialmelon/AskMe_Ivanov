@@ -27,7 +27,7 @@ def questions_list(request: HttpRequest) -> HttpResponse:
 
 def login(request: HttpRequest) -> HttpResponse:
     if request.user.is_authenticated:
-        return redirect(request.GET.get("next") or request.GET.get("continue", "/"))
+        return redirect(request.GET.get("continue", "/"))
 
     form = LoginForm()
     if request.method == "POST":
@@ -40,9 +40,7 @@ def login(request: HttpRequest) -> HttpResponse:
             )
             if user:
                 django_login(request, user)
-                return redirect(
-                    request.GET.get("next") or request.GET.get("continue", "/")
-                )
+                return redirect(request.GET.get("continue", "/"))
             form.add_error(None, "Incorrect username or password")
     return render(request, "askme/user/login.html", {"form": form})
 
@@ -55,7 +53,7 @@ def logout(request: HttpRequest) -> HttpResponse:
 
 def register(request: HttpRequest) -> HttpResponse:
     if request.user.is_authenticated:
-        return redirect(request.GET.get("next") or request.GET.get("continue", "index"))
+        return redirect(request.GET.get("continue", "index"))
     form = RegisterForm()
     if request.method == "POST":
         form = RegisterForm(request.POST, request.FILES)
