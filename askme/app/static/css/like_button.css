@@ -1,0 +1,61 @@
+.like-button, .answer-like-button {
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    border-radius: 50%;
+    background-color: #28a745;
+    color: white;
+    border: 1px solid #28a745;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.like-button:hover, .answer-like-button:hover {
+    background-color: #218838; 
+    border-color: #1e7e34;
+}
+
+.like-button.active, .answer-like-button.active  {
+    background-color: #dc3545; 
+    border-color: #dc3545;
+    content: "-"; 
+}
+
+.like-button.active:hover, .answer-like-button.active:hover  {
+    background-color: #c82333; 
+    border-color: #bd2130;
+}
+
+.like-button.active::after, .answer-like-button.active::after {
+    content: "-"; 
+}
+
+.like-button:not(.active)::after, .answer-like-button:not(.active)::after {
+    content: "+"; 
+}
+
+.like-count, .answer-like-count {
+    min-width: 1.5rem;
+    text-align: center;
+    margin: 0 0.25rem;
+}
+
+
+
+.useful-answer {
+    border-left: 4px solid #28a745 !important;
+}
+
+.useful-answer .helpful-checkbox:checked {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+
+.helpful-checkbox:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}

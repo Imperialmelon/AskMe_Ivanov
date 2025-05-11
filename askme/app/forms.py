@@ -207,7 +207,6 @@ class AskForm(forms.ModelForm):
 
     def clean_tags(self) -> list[str]:
         tags = self.cleaned_data.get("tags")
-        print(tags)
         if tags:
             tags_list = [tag.strip() for tag in tags.split(",") if tag.strip()]
             if not tags_list:
@@ -224,7 +223,6 @@ class AskForm(forms.ModelForm):
         if commit:
             question.save()
             tags = set(self.cleaned_data.get("tags", []))
-            print(tags)
             for tag_name in tags:
                 tag, created = Tag.objects.get_or_create(title=tag_name.lower())
                 question.tags.add(tag)

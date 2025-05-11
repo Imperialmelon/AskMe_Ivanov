@@ -14,6 +14,9 @@ urlpatterns = [
     path("settings/", views.settings, name="settings"),
     path("hot/", views.hot_questions, name="hot_questions"),
     path("<str:tag_name>/", views.questions_with_tag, name="get_by_tag"),
+    path("question_like/<int:question_id>/", views.question_like, name="question_like"),
+    path("answer_like/<int:answer_id>/", views.answer_like, name="answer_like"),
+    path("set_useful/<int:answer_id>/", views.set_useful, name="set_useful"),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

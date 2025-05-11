@@ -1,5 +1,8 @@
 {% extends "askme/base.html" %}
-
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/like_button.css' %}">
+<script src="{% static 'js/like_button.js' %}" defer></script>
+{% endblock %}
 
         {% block content %}
         <div class="d-flex justify-content-start gap-3 align-items-center w-100">

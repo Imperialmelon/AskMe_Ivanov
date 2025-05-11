@@ -1,4 +1,9 @@
 {% extends "askme/base.html" %}
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/like_button.css' %}">
+<script src="{% static 'js/like_button.js' %}" defer></script>
+{% endblock %}
 
 
         {% block content %}
