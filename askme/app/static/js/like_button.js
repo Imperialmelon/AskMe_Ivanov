@@ -110,7 +110,6 @@ const setupUsefulAnswers = () => {
         
         if (!isAuthor) {
             checkbox.disabled = true;
-            checkbox.title = 'Только автор вопроса может отметить ответ как полезный';
         } else {
             checkbox.addEventListener('change', () => {
                 fetch(`/set_useful/${answerId}/`, {
@@ -124,10 +123,6 @@ const setupUsefulAnswers = () => {
                     if (response.status === 401) {
                         window.location.href = `/login/?next=${encodeURIComponent(window.location.pathname)}`;
                         return Promise.reject('Unauthorized');
-                    }
-                    if (response.status === 403) {
-                        checkbox.checked = !checkbox.checked; 
-                        return Promise.reject('Forbidden');
                     }
                     return response.json();
                 })
@@ -143,12 +138,6 @@ const setupUsefulAnswers = () => {
                         card.classList.remove('useful-answer');
                     }
                 })
-                .catch(error => {
-                    console.error('Error:', error);
-                    if (error === 'Forbidden') {
-                        alert('Только автор вопроса может отметить ответ как полезный');
-                    }
-                });
             });
         }
     });
